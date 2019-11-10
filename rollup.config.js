@@ -25,7 +25,7 @@ export default {
   plugins: [
     external(),
     postcss({
-      modules: true
+      modules: false
     }),
     url(),
     svgr(),
@@ -34,6 +34,11 @@ export default {
       plugins: [ 'external-helpers' ]
     }),
     resolve(),
-    commonjs()
+    commonjs({
+      include: 'node_modules/**',
+      namedExports: {
+        'node_modules/react-is/index.js': ['isElement','isValidElementType','ForwardRef']
+      }
+    })
   ]
 }
