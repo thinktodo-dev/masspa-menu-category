@@ -32,7 +32,7 @@ const MasspaMenuLink = styled.a`
     margin: 0px auto;
     width: ${props => props.sizeImage +'px'};
     height: ${props => props.sizeImage +'px'};
-    ${({borderRadius}) =>(borderRadius === 'rounded' ? getBorderRadius(50) : "border-radius: 0")};
+    ${({borderRadius}) =>(borderRadius === 'rounded' ? getBorderRadius(50) : `border-radius: ${borderRadius}`)};
     border: ${props=>props.borderImage};
     z-index: 3;
     overflow: hidden;
@@ -57,7 +57,7 @@ const MasspaMenuImage = styled.img`
     width: ${props => props.sizeImage +'px'};
     height: ${props => props.sizeImage +'px'};
     z-index: -1;
-    ${({borderRadius}) =>(borderRadius === 'rounded' ? getBorderRadius(50) : "border-radius: 0")};
+    ${({borderRadius}) =>(borderRadius === 'rounded' ? getBorderRadius(50) : `border-radius: ${borderRadius}`)};
 
    
 
@@ -589,7 +589,7 @@ export default class MasspaMenuCategory extends Component {
 MasspaMenuCategory.defaultProps = {
   sizeImage: 140,
   borderImage: 'none',
-  borderRadius: 'none',
+  borderRadius: '0px',
   data: [],
   mode: 1,
   animation: 'zoom',

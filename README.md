@@ -346,7 +346,7 @@ export default class Example extends Component {
 | **`borderImage`**         | Border for image                        |                               | `"none"`      |  String  |            
 | **`sizeImage`**           | Size image                              |                               | `140`         |  Number  |
 | **`mode`**                | Mode title inside or outside image      | `1` or `2`                    | `1`           |  Number  |
-| **`borderRadius`**        | Border radius for image                 | `"none"` or `"rounded"`       | `"none"`      |  String  |
+| **`borderRadius`**        | Border radius for image                 | `"0px"` or `"rounded"`        | `"0px"`      |  String  |
 | **`animation`**           | Animation                               | `"zoom"` or `"rotate"`        | `"zoom"`      |  String  |
 
 
