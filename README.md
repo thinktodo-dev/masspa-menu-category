@@ -339,15 +339,15 @@ export default class Example extends Component {
 
 ## Properties
 
-| Prop                      | Description                             | Value                         | Default       | Required | 
-| ------------------------- |-----------------------------------------|-------------------------------|---------------|----------|
-| **`data`**                | List menu to show                       |                               | `[]`          |  Array   |
-| **`link`**                | Link url                                |                               | `"#"`         |  String  |
-| **`borderImage`**         | Border for image                        |                               | `"none"`      |  String  |            
-| **`sizeImage`**           | Size image                              |                               | `140`         |  Number  |
-| **`mode`**                | Mode title inside or outside image      | `1` or `2`                    | `1`           |  Number  |
-| **`borderRadius`**        | Border radius for image                 | `"0px"` or `"rounded"`        | `"0px"`      |  String  |
-| **`animation`**           | Animation                               | `"zoom"` or `"rotate"`        | `"zoom"`      |  String  |
+| Prop                      | Description                             | Value                         | Default                   | Required          | 
+| ------------------------- |-----------------------------------------|-------------------------------|---------------------------|-------------------|
+| **`data`**                | List menu to show                       |                               | `[]`                      |  Array            |
+| **`link`**                | Link url                                |                               | `/category/?categoryId=`  |  Template strings |
+| **`borderImage`**         | Border for image                        |                               | `"none"`                  |  String           |            
+| **`sizeImage`**           | Size image                              |                               | `140`                     |  Number           |
+| **`mode`**                | Mode title inside or outside image      | `1` or `2`                    | `1`                       |  Number           |
+| **`borderRadius`**        | Border radius for image                 | `"0px"` or `"rounded"`        | `"0px"`                   |  String           |
+| **`animation`**           | Animation                               | `"zoom"` or `"rotate"`        | `"zoom"`                  |  String           |
 
 
 ## Caution: use css Bootstrap 4.0.1

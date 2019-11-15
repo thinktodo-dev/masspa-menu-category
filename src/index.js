@@ -25,7 +25,7 @@ function setImagePosition(value){
 
 
 
-const MasspaMenuLink = styled.a`
+const MasspaMenuLink = styled.div`
     background-color: #ddd;
     position: relative;
     display: block;
@@ -36,6 +36,7 @@ const MasspaMenuLink = styled.a`
     border: ${props=>props.borderImage};
     z-index: 3;
     overflow: hidden;
+    cursor:pointer
 
     @media only screen and (max-width: 767.98px) and (min-width: 457px){
       width: ${props => props.sizeImage *2 +'px'};
@@ -101,7 +102,6 @@ export default class MasspaMenuCategory extends Component {
   
   static propTypes = {
     data: PropTypes.array.isRequired,
-    link: PropTypes.string.isRequired,
     sizeImage: PropTypes.number.isRequired,
     borderImage: PropTypes.string.isRequired,
     borderRadius: PropTypes.string.isRequired,
@@ -146,6 +146,12 @@ export default class MasspaMenuCategory extends Component {
 
 }
 
+  handleClick(id ,link){
+    if(typeof window !== `undefined`){
+      window.history.pushState("","",`${link}${id}`)
+    }
+  }
+
   renderMenuFeature(){
     const{data , link , sizeImage , borderImage , borderRadius, mode, animation} = this.props;
     if(data.length !== 0){
@@ -185,7 +191,7 @@ export default class MasspaMenuCategory extends Component {
                           if(animation === 'zoom'){
                             return (
                                 <div className="masspa-menu-category-container"  key={i}>
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -199,7 +205,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                              
                                 <div className="masspa-menu-category-container" key={i}>
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -214,7 +220,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                            
                                 <div className="masspa-menu-category-container" key={i}>
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -232,7 +238,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                            
                                <div className="masspa-menu-category-container" key={i}>
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                  <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -245,7 +251,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                           
                                <div className="masspa-menu-category-container" key={i}>
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  className="masspa-menu-category-rotate">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  className="masspa-menu-category-rotate">
                                  <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -258,7 +264,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                          
                                <div className="masspa-menu-category-container" key={i}>
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  >
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  >
                                  <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -277,7 +283,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                          
                                 <div className="masspa-menu-category-container" key={i}>
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -292,7 +298,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                             
                                 <div className="masspa-menu-category-container" key={i}>
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -307,7 +313,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                            
                                 <div className="masspa-menu-category-container" key={i}>
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -325,7 +331,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                            
                                <div className="masspa-menu-category-container" key={i}>
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                    <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode} />
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -337,7 +343,7 @@ export default class MasspaMenuCategory extends Component {
                           }else if(animation === 'rotate'){
                            return (
                                <div className="masspa-menu-category-container" key={i}>
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
                                    <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode} />
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -348,7 +354,7 @@ export default class MasspaMenuCategory extends Component {
                           }else{
                            return (
                                <div className="masspa-menu-category-container" key={i}>
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
                                    <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode} />
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -380,7 +386,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                               <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                 <div className="masspa-menu-category-container">
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -395,7 +401,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                               <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                 <div className="masspa-menu-category-container">
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -410,7 +416,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                               <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                 <div className="masspa-menu-category-container">
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -428,7 +434,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                              <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                <div className="masspa-menu-category-container">
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                  <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -441,7 +447,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                              <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                <div className="masspa-menu-category-container">
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  className="masspa-menu-category-rotate">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  className="masspa-menu-category-rotate">
                                  <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -454,7 +460,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                              <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                <div className="masspa-menu-category-container">
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  >
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  >
                                  <MasspaMenuImage  src={imageDefaut}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -473,7 +479,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                               <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                 <div className="masspa-menu-category-container">
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -488,7 +494,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                               <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                 <div className="masspa-menu-category-container">
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -503,7 +509,7 @@ export default class MasspaMenuCategory extends Component {
                             return (
                               <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                 <div className="masspa-menu-category-container">
-                                  <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
+                                  <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
                                     <span className="masspa-menu-category-overlay-2">
                                     <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode}/>
                                     <div  className="masspa-menu-category-title-2">{service.name}</div>
@@ -521,7 +527,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                              <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                <div className="masspa-menu-category-container">
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
                                    <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode} />
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -534,7 +540,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                              <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                <div className="masspa-menu-category-container">
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
                                    <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode} />
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -547,7 +553,7 @@ export default class MasspaMenuCategory extends Component {
                            return (
                              <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
                                <div className="masspa-menu-category-container">
-                                 <MasspaMenuLink href={link} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
+                                 <MasspaMenuLink onClick={()=>this.handleClick(service.id , link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
                                    <MasspaMenuImage  src={service.image}  alt={service.name} sizeImage={sizeImage}   borderRadius={borderRadius} mode={mode} />
                                  </MasspaMenuLink>
                                  <div  className="masspa-menu-category-title-1">{service.name}</div>
@@ -593,5 +599,5 @@ MasspaMenuCategory.defaultProps = {
   data: [],
   mode: 1,
   animation: 'zoom',
-  link: '#'
+  link: `/category/?categoryId=`
 }

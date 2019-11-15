@@ -311,7 +311,7 @@ let dataLists = [
   
 ]
 
-let link = "#"
+
 
 let size = 180
 export default class App extends Component {
