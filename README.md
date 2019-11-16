@@ -331,7 +331,7 @@ let size = 180
 export default class Example extends Component {
   render () {
     return (
-        <MasspaMenuCategory  data={dataLists}    borderImage="5px solid #ddd" sizeImage={size} mode={1} borderRadius="rounded" animation="rotate"/>
+        <MasspaMenuCategory link={`/service/?serviceId=`} data={dataLists}   borderImage="5px solid blue" sizeImage={size} mode={1} borderRadius="rounded" animation="zoom" colorTitle="red"/>
     )
   }
 }
@@ -348,7 +348,7 @@ export default class Example extends Component {
 | **`mode`**                | Mode title inside or outside image      | `1` or `2`                    | `1`                       |  Number           |
 | **`borderRadius`**        | Border radius for image                 | `"0px"` or `"rounded"`        | `"0px"`                   |  String           |
 | **`animation`**           | Animation                               | `"zoom"` or `"rotate"`        | `"zoom"`                  |  String           |
-
+| **`colorTitle`**           | Color of title                         |                               | `"#141517"`               |  String           |
 
 ## Caution: use css Bootstrap 4.0.1
 

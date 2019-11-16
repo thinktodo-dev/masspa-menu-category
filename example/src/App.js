@@ -11,7 +11,7 @@ let dataLists = [
     description: "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>",
     featured: 1,
     id: "08b22e65-c4d5-413b-b112-7d1b5405bab9",
-    image: "https://storage.googleapis.com/masspa-152306.appspot.com/myServices/0548caa0-a47b-11e9-b6ea-cd470457ddbc/menu-service/0548caa0-a47b-11e9-b6ea-cd470457ddbc_1573047753500.jpg",
+    image: "https://storage.googleapis.com/masspa-152306.appspot.com/myServices/0548caa0-a47b-11e9-b6ea-cd470457ddbc/menu-service/0548caa0-a47b-11e9-b6ea-cd470457ddbc_1573097274646.jpg",
     name: "Body",
     parentCode: "",
     serviceCode: "0548caa0-a47b-11e9-b6ea-cd470457ddbc",
@@ -313,14 +313,15 @@ let dataLists = [
 
 
 
-let size = 180
+let size = 160
 export default class App extends Component {
+
+
+
   render () {
-    // ten cac thuoc tinh: data , link , sizeImage, borderImage, borderRadius , mode , animation
-    
     return (
       <div >
-        <MasspaMenuCategory  data={dataLists}    borderImage="5px solid red" sizeImage={size} mode={1} borderRadius="rounded" animation="rotate"/>
+        <MasspaMenuCategory link={`/service/?serviceId=`} data={dataLists}   borderImage="5px solid blue" sizeImage={size} mode={1} borderRadius="rounded" animation="zoom" colorTitle="red"/>
       </div>
     )
   }

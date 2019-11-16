@@ -1,120 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styles from './css/styles.css'
-import './css/bootstrap.css'
-import styled from 'styled-components';
 import imageDefaut from './images/lotus.svg'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import imgArrowLeft from './images/back.svg'
 import imgArrowRight from './images/next.svg'
+import { navigate } from "@reach/router"
 
-
-function getBorderRadius(value) {
-  return `border-radius: ${value}%;`
-}
-
-function setImagePosition(value) {
-  if (value === 2) {
-    return (`transform : translate(-53%,-60%);`)
-  } else {
-    return (`transform : translate(-50%,-50%);`)
-  }
-}
-
-const MasspaMenuLink02 = styled.a`
-    background-color: #ddd;
-    position: relative;
-    display: block;
-    margin: 0px auto;
-    width: ${props => props.sizeImage + 'px'};
-    height: ${props => props.sizeImage + 'px'};
-    ${({ borderRadius }) => (borderRadius === 'rounded' ? getBorderRadius(50) : `border-radius: ${borderRadius}`)};
-    border: ${props => props.borderImage};
-    z-index: 3;
-    overflow: hidden;
-    cursor:pointer
-
-    @media only screen and (max-width: 767.98px) and (min-width: 457px){
-      width: ${props => props.sizeImage * 2 + 'px'};
-      height: ${props => props.sizeImage * 2 + 'px'};
-    }
-
-    @media only screen and (max-width: 456.98px) {
-      width: 200px;
-      height: 200px;
-    }
-
-`
-
-const MasspaMenuLink01 = styled.div`
-    background-color: #ddd;
-    position: relative;
-    display: block;
-    margin: 0px auto;
-    width: ${props => props.sizeImage + 'px'};
-    height: ${props => props.sizeImage + 'px'};
-    ${({ borderRadius }) => (borderRadius === 'rounded' ? getBorderRadius(50) : `border-radius: ${borderRadius}`)};
-    border: ${props => props.borderImage};
-    z-index: 3;
-    overflow: hidden;
-    cursor:pointer
-
-    @media only screen and (max-width: 767.98px) and (min-width: 457px){
-      width: ${props => props.sizeImage * 2 + 'px'};
-      height: ${props => props.sizeImage * 2 + 'px'};
-    }
-
-    @media only screen and (max-width: 456.98px) {
-      width: 200px;
-      height: 200px;
-    }
-
-`
-const MasspaMenuImage = styled.img`
-    object-fit: cover;
-    position: absolute;
-    left: 50%;
-    ${({ mode }) => (mode === 1 ? "top:50%" : "top:0%")};
-    ${({ mode }) => (mode === 1 ? setImagePosition(1) : setImagePosition(2))};
-    width: ${props => props.sizeImage + 'px'};
-    height: ${props => props.sizeImage + 'px'};
-    z-index: -1;
-    ${({ borderRadius }) => (borderRadius === 'rounded' ? getBorderRadius(50) : `border-radius: ${borderRadius}`)};
-
-   
-
-    @media only screen and (max-width: 767.98px) and (min-width: 457px){
-      width: ${props => props.sizeImage * 2 + 'px'};
-      height: ${props => props.sizeImage * 2 + 'px'};
-    }
-
-    @media only screen and (max-width: 456.98px) {
-      width: 200px;
-      height: 200px;
-    }
-`
-const ArrowLeft = styled.img`
-    position : absolute;
-    top: 30%;
-    left: 0%;
-    width: 20px;
-    height: 20px;
-    z-index: 2;
-    cursor: pointer;
-   
-`
-
-const ArrowRight = styled.img`
-    position : absolute;
-    top: 30%;
-    right: 0%;
-    width: 20px;
-    height: 20px;
-    z-index: 2;
-    cursor: pointer;
-`
 
 export default class MasspaMenuCategory extends Component {
   constructor(props) {
@@ -130,6 +24,7 @@ export default class MasspaMenuCategory extends Component {
     borderRadius: PropTypes.string.isRequired,
     mode: PropTypes.number.isRequired,
     animation: PropTypes.string.isRequired,
+    colorTitle: PropTypes.string.isRequired
   }
 
 
@@ -169,15 +64,13 @@ export default class MasspaMenuCategory extends Component {
 
   }
 
-  handleClick(id, link) {
-
-    if (typeof navigate !== `undefined`) {
-      navigate(`${link}${id}`)
-    }
+  handleClick=(id)=>{
+    const {link} = this.props;
+    navigate(`${link}${id}`)
   }
 
   renderMenuFeature() {
-    const { data, link, sizeImage, borderImage, borderRadius, mode, animation } = this.props;
+    const { data, sizeImage, borderImage, borderRadius, mode, animation, colorTitle, link } = this.props;
     if (data.length !== 0) {
       let menuServicesFeature = [];
       data.map((menu, i) => {
@@ -215,22 +108,26 @@ export default class MasspaMenuCategory extends Component {
                       if (animation === 'zoom') {
                         return (
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )
-                            }
+                            <div className="masspa-menu-link masspa-menu-category-zoom"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
 
@@ -239,115 +136,139 @@ export default class MasspaMenuCategory extends Component {
                         return (
 
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )
-                            }
+                          
+                          <div className="masspa-menu-link masspa-menu-category-rotate"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
+                                                          
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
-
 
                         )
                       } else {
                         return (
-
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )
-                            }
+                             <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
-
-
                         )
                       }
 
                     } else {
                       if (animation === 'zoom') {
                         return (
+                          <div className="masspa-menu-category-container masspa-menu-category-zoom" key={i}>
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                          <div className="masspa-menu-category-container" key={i}>
-
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )
-                            }
-
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
-
 
                         )
                       } else if (animation === 'rotate') {
                         return (
+                          <div className="masspa-menu-category-container masspa-menu-category-rotate" key={i}>
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                          <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )
-                            }
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
-
-
                         )
                       } else {
                         return (
 
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )
-                            }
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
-                            {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
-                          </div>
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
+                          </div>
 
                         )
                       }
@@ -358,116 +279,137 @@ export default class MasspaMenuCategory extends Component {
                     if (mode === 2) {
                       if (animation === 'zoom') {
                         return (
-
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                            <div className="masspa-menu-link masspa-menu-category-zoom"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
-
 
                         )
                       } else if (animation === 'rotate') {
                         return (
-
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                            <div className="masspa-menu-link masspa-menu-category-rotate"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
-
-
                         )
                       } else {
                         return (
-
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
-
-
                         )
                       }
 
                     } else {
                       if (animation === 'zoom') {
                         return (
+                          <div className="masspa-menu-category-container  masspa-menu-category-zoom" key={i}>
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage,
+                                
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                          <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
-
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
-                          </div>
 
+                          </div>
 
                         )
                       } else if (animation === 'rotate') {
                         return (
-                          <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-category-container  masspa-menu-category-rotate" key={i}>
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
 
@@ -475,17 +417,25 @@ export default class MasspaMenuCategory extends Component {
                       } else {
                         return (
                           <div className="masspa-menu-category-container" key={i}>
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                            <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
 
@@ -499,87 +449,101 @@ export default class MasspaMenuCategory extends Component {
                 })
                 }
               </Slider>
-              <ArrowLeft src={imgArrowLeft} onClick={this.previousMenuCategory} />
-              <ArrowRight src={imgArrowRight} onClick={this.nextMenuCategory} />
+              <img className="masspa-menu-category-arrow-left" src={imgArrowLeft} onClick={this.previousMenuCategory} />
+              <img className="masspa-menu-category-arrow-right" src={imgArrowRight} onClick={this.nextMenuCategory} />
             </div>
           )
         } else {
           // khong hien thi slide
           return (
-            <div className="row w-100 mx-auto">
+            <div className="masspa-menu-category-row">
               {menuServicesFeature.map((service, i) => {
                 if (service.image === "") {
                   if (mode === 2) {
                     if (animation === 'zoom') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                          <div className="masspa-menu-link masspa-menu-category-zoom"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
                         </div>
 
                       )
                     } else if (animation === 'rotate') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                          <div className="masspa-menu-link masspa-menu-category-rotate"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
                         </div>
 
                       )
                     } else {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                          <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -590,39 +554,56 @@ export default class MasspaMenuCategory extends Component {
                   } else {
                     if (animation === 'zoom') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-link masspa-menu-category-zoom"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
                         </div>
 
                       )
                     } else if (animation === 'rotate') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-link masspa-menu-category-rotate"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -630,19 +611,27 @@ export default class MasspaMenuCategory extends Component {
                       )
                     } else {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  >
-                                <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage}  >
-                                  <MasspaMenuImage src={imageDefaut} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={imageDefaut} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -656,24 +645,28 @@ export default class MasspaMenuCategory extends Component {
                   if (mode === 2) {
                     if (animation === 'zoom') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                          <div className="masspa-menu-link masspa-menu-category-zoom"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -681,24 +674,28 @@ export default class MasspaMenuCategory extends Component {
                       )
                     } else if (animation === 'rotate') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                          <div className="masspa-menu-link masspa-menu-category-rotate"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -706,25 +703,30 @@ export default class MasspaMenuCategory extends Component {
                       )
                     } else {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <span className="masspa-menu-category-overlay-2">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                  <div className="masspa-menu-category-title-2">{service.name}</div>
-                                </span>
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <span className="masspa-menu-category-overlay-2">
-                                    <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                    <div className="masspa-menu-category-title-2">{service.name}</div>
-                                  </span>
-                                </MasspaMenuLink02>
-                              )}
-
+                          <div className="masspa-menu-link"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                              <span className="masspa-menu-category-overlay-2">
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-02"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                                <div className="masspa-menu-category-title-2" style={{color: colorTitle}}>{service.name}</div>
+                              </span>
+                            </div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
                         </div>
 
@@ -734,19 +736,27 @@ export default class MasspaMenuCategory extends Component {
                   } else {
                     if (animation === 'zoom') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-zoom">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-link masspa-menu-category-zoom"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -754,41 +764,59 @@ export default class MasspaMenuCategory extends Component {
                       )
                     } else if (animation === 'rotate') {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
 
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} className="masspa-menu-category-rotate">
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-link masspa-menu-category-rotate"
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
                         </div>
 
                       )
                     } else {
                       return (
-                        <div className="col-sm-12 col-md-3 col-lg-3" key={i}>
+                        <div className="ms-menu-col-sm-12 ms-menu-col-md-3 ms-menu-col-lg-3" key={i}>
                           <div className="masspa-menu-category-container">
-                            {(typeof navigate !== `undefined`) ? (
-                              <MasspaMenuLink01 onClick={() => this.handleClick(service.id, link)} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                              </MasspaMenuLink01>
-                            ) : (
-                                <MasspaMenuLink02 href={`${link}${service.id}`} sizeImage={sizeImage} borderRadius={borderRadius} borderImage={borderImage} >
-                                  <MasspaMenuImage src={service.image} alt={service.name} sizeImage={sizeImage} borderRadius={borderRadius} mode={mode} />
-                                </MasspaMenuLink02>
-                              )}
+                          <div className="masspa-menu-link "
+                              style={{
+                                width: sizeImage + 'px',
+                                height: sizeImage + 'px',
+                                borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                border: borderImage
+                              }}
+                              onClick={()=>this.handleClick(service.id)}
+                            >
+                                <img src={service.image} alt={service.name} className="masspa-menu-category-image-01"
+                                  style={{
+                                    width: sizeImage + 'px',
+                                    height: sizeImage + 'px',
+                                    borderRadius: borderRadius === 'rounded' ? '50%' : borderRadius,
+                                  }}
+                                />
+                            </div>
 
-                            <div className="masspa-menu-category-title-1">{service.name}</div>
+                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
+
                           </div>
                         </div>
 
@@ -813,7 +841,6 @@ export default class MasspaMenuCategory extends Component {
   }
 
   render() {
-    const { data, sizeImage, link } = this.props
     return (
       <div >
         {this.renderMenuFeature()}
@@ -830,5 +857,6 @@ MasspaMenuCategory.defaultProps = {
   data: [],
   mode: 1,
   animation: 'zoom',
-  link: `/category/?categoryId=`
+  link: `/category/?categoryId=`,
+  colorTitle: '#141517'
 }
