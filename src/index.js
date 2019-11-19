@@ -207,7 +207,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
 
@@ -233,7 +233,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
 
                           </div>
@@ -260,7 +260,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
 
                           </div>
@@ -377,7 +377,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
 
                           </div>
@@ -404,7 +404,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
 
@@ -430,7 +430,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
 
@@ -569,7 +569,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
 
                           </div>
@@ -598,7 +598,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -626,7 +626,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -751,7 +751,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
                           </div>
                         </div>
@@ -780,7 +780,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </a>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
 
                           </div>
@@ -809,7 +809,7 @@ export default class MasspaMenuCategory extends Component {
                                 />
                             </div>
 
-                            <div className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</div>
+                            <a href={`${link}${service.id}`} className="masspa-menu-category-title-1" style={{color: colorTitle}}>{service.name}</a>
                             {service.description !== null ? <div className="masspa-menu-category-text" dangerouslySetInnerHTML={{ __html: `${service.description}` }}></div> : <div></div>}
 
                           </div>

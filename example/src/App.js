@@ -321,7 +321,7 @@ export default class App extends Component {
   render () {
     return (
       <div >
-        <MasspaMenuCategory link={`/service/?serviceId=`} data={dataLists}   borderImage="5px solid blue" sizeImage={size} mode={1} borderRadius="rounded" animation="zoom" colorTitle="red"/>
+        <MasspaMenuCategory link={`/service/?serviceId=`} data={dataLists}   borderImage="5px solid blue" sizeImage={size} mode={2} borderRadius="rounded" animation="zoom" colorTitle="red"/>
       </div>
     )
   }

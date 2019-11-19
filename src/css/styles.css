@@ -20,6 +20,9 @@ body {
   background-color: #fff;
 }
 
+a{
+  text-decoration: unset;
+}
 
 .ms-menu-col-1, .ms-menu-col-2, .ms-menu-col-3, .ms-menu-col-4, .ms-menu-col-5, .ms-menu-col-6, .ms-menu-col-7, .ms-menu-col-8, .ms-menu-col-9, .ms-menu-col-10, .ms-menu-col-11, .ms-menu-col-12, .ms-menu-col,
 .ms-menu-col-auto, .ms-menu-col-sm-1, .ms-menu-col-sm-2, .ms-menu-col-sm-3, .ms-menu-col-sm-4, .ms-menu-col-sm-5, .ms-menu-col-sm-6, .ms-menu-col-sm-7, .ms-menu-col-sm-8, .ms-menu-col-sm-9, .ms-menu-col-sm-10, .ms-menu-col-sm-11, .ms-menu-col-sm-12, .ms-menu-col-sm,
